@@ -2,6 +2,7 @@ package info.fandroid.p0091_onclickbuttons;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,12 +17,15 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     Button button2;
     Button button3;
 
+    private static final String TAG = "myLogs";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.d(TAG, "найдем View-элементы");
         textView = (TextView) findViewById(R.id.textView);
         button1 = (Button) findViewById(R.id.button1);
         button2 = (Button) findViewById(R.id.button2);
@@ -30,7 +34,12 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                textView.setText("Нажата кнопка 1");
+                try {
+                    int i = 6/0;
+                    textView.setText("Результат деления = " + i);
+                } catch (Exception e) {
+                    Log.d(TAG, "Делить на 0 нельзя!", e);
+                }
             }
         });
 
@@ -43,6 +52,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     public void clickButton3(View view) {
         textView.setText("Нажата кнопка 3");
+        Log.d(TAG, "Обработаем нажатие кнопки 3");
     }
 
 
@@ -71,5 +81,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         textView.setText("Нажата кнопка 2");
+        Log.d(TAG, "Обработаем нажатие кнопки 2");
     }
 }
